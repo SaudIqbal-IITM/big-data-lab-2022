@@ -16,6 +16,6 @@ options.view_as(StandardOptions).runner = "DataflowRunner"
 
 with beam.Pipeline(options=options) as p:
 	input = p | "Read Lines"  >> beam.io.ReadFromText("gs://bdl2022/lines_big.txt")
-	num_words = input | "Number of Words" >> beam.FlatMap(lambda line: [len(line.split(' '))])
+	num_words = input | "Number of Words" >> beam.FlatMap(lambda line: [len(line.split())])
 	avg_num_words = num_words | "Average Number Words" >> beam.combiners.Mean.Globally()
 	output = avg_num_words | "Write Average Number Words"  >> beam.io.WriteToText("gs://me18b169_bdl_2022_bucket/outputs/lab_3/q_2/avg_num_words.txt")
