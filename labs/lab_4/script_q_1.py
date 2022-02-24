@@ -5,10 +5,6 @@ def hash_funcn(entry):
 	# Get all the values.
 	values = entry.split(',')
 
-	# Ignore the header.
-	if values[0] == "Datetime":
-		return None
-
 	# Datetime.
 	datetime = values[0]
 
@@ -51,5 +47,5 @@ output_uri = sys.argv[2]
 sc = pyspark.SparkContext()
 
 # Logic.
-counts = sc.textFile(input_uri).flatMap(hash_funcn).reduceByKey(lambda count1, count2: count1 + count2).coalesce(1)
+counts = sc.textFile(input_uri).filter(lambda x: x != "Datetime,User ID").map(hash_funcn).reduceByKey(lambda count1, count2: count1 + count2).coalesce(1)
 counts.saveAsTextFile(output_uri)
