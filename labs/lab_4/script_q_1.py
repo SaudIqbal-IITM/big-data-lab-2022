@@ -2,14 +2,8 @@ import pyspark
 import sys
 
 def hash_funcn(entry):
-	# Get all the values.
-	values = entry.split(',')
-
-	# Datetime.
-	datetime = values[0]
-
-	# User ID.
-	user_id = values[1]
+	# Get datetime and user id.
+	datetime, user_id = entry.split(',')
 
 	# Segregate date and time.
 	date, time = datetime.split(' ')
@@ -47,5 +41,5 @@ output_uri = sys.argv[2]
 sc = pyspark.SparkContext()
 
 # Logic.
-counts = sc.textFile(input_uri).filter(lambda x: x != "Datetime,User ID").map(hash_funcn).reduceByKey(lambda count1, count2: count1 + count2).coalesce(1)
-counts.saveAsTextFile(output_uri)
+user_clicks = sc.textFile(input_uri).filter(lambda x: x != "Datetime,User ID").map(hash_funcn).reduceByKey(lambda count1, count2: count1 + count2)
+user_clicks.saveAsTextFile(output_uri)
