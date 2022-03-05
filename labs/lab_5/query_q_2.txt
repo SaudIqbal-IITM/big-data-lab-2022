@@ -1,0 +1,8 @@
+SELECT
+  COUNT(*)
+FROM
+  bdl-2022-341111.iris_dataset.iris_plants_data
+WHERE
+  class = 'Iris-virginica'
+  AND sepal_width > 3
+  AND petal_length < 2
