@@ -1,6 +1,5 @@
 ## Setup.
 # Imports.
-import base64
 from google.cloud import pubsub_v1
 from google.cloud import storage
 
@@ -22,7 +21,7 @@ subscription_name = "projects/bdl-2022-341111/subscriptions/lab-6-sub"
 ## Logic.
 # Callback.
 def callback(message):
-	filename = base64.b64decode(message["data"]).decode("utf-8")
+	filename = message.data.decode('utf-8')
 
 	blob = bucket.get_blob(filename)
 
@@ -30,7 +29,7 @@ def callback(message):
 
 	num_lines = len(data.split('\n'))
 
-	print(f"Number of lines in the file, {filename}: {num_lines}")
+	print("Number of lines in the file, " + filename + ": " + str(num_lines))
 
 	message.ack()
 

@@ -17,7 +17,7 @@ def pub_filename(data, context):
 	publisher = pubsub_v1.PublisherClient()
 
 	# Topic name.
- 	topic_name = "projects/bdl-2022-341111/topics/lab-6"
+	topic_name = "projects/bdl-2022-341111/topics/lab-6"
 
 	## Logic.
 	# Filename.
@@ -28,3 +28,4 @@ def pub_filename(data, context):
 
 	# Wait.
 	future.result()
+
