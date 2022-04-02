@@ -10,7 +10,7 @@ client = storage.Client()
 bucket = client.get_bucket("me18b169_bdl_2022_bucket")
 
 # Kafka producer.
-producer = KafkaProducer(bootstrap_servers="127.0.0.1:9092")
+producer = KafkaProducer(bootstrap_servers="10.128.0.62:9092")
 
 ## Logic.
 # Download data file from GCS.
@@ -19,8 +19,8 @@ data = blob.download_as_string().decode("utf-8")
 
 # Write data row by row to Kafka topic.
 for entry in data.split('\n')[1:]:
-	# Send.
-	producer.send("lab-7", entry)
+        # Send.
+        producer.send("lab-7", bytes(entry, 'utf-8'))
 
-	# Wait.
-	producer.flush()
+        # Wait.
+        producer.flush()
