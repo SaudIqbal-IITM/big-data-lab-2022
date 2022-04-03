@@ -10,7 +10,7 @@ client = storage.Client()
 bucket = client.get_bucket("me18b169_bdl_2022_bucket")
 
 # Kafka producer.
-producer = KafkaProducer(bootstrap_servers="10.128.0.62:9092")
+producer = KafkaProducer(bootstrap_servers="10.132.0.2:9092")
 
 ## Logic.
 # Download data file from GCS.
